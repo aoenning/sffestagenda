@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import * as s from "./styles";
 
-function Card({ key, date, email, telefone, confirmacao, valor, adiantamento, observacao }) {
+function Card({ key, nome, date, email, telefone, confirmacao, valor, adiantamento, observacao }) {
   return (
     <s.Container>
+      <h1>{nome}</h1>  
       <h1>{date}</h1>
       <h1>{email}</h1>
       <h1>{telefone}</h1>
