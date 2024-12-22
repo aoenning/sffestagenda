@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  width: 300px;
+  width: 350px;
   height: 300px;
   /* justify-content: center; */
   align-items: center;

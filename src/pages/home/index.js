@@ -77,7 +77,7 @@ function Home() {
 
   return (
     <s.Container>
-      <h1>Reservas</h1>
+      <h1>Casa de festa SFFest / Reservas</h1>
       <s.Area>
         <s.CardContainer>
           {agenda.map(
