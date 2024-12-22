@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  width: 350px;
+  width: 400px;
   height: 300px;
   /* justify-content: center; */
   align-items: center;
@@ -18,7 +18,7 @@ export const BoxTitle = styled.div`
   height: 30%;
   justify-content: center;
   align-items: center;
-  background: #000;
+  background: #b22222;
   display: flex;
   flex-direction: column;
 `;
@@ -28,7 +28,7 @@ export const BoxSubTitle = styled.div`
   height: 70%;
   justify-content: center;
   align-items: center;
-  background: #b22222;
+  background: #ffff;
   display: flex;
   flex-direction: column;
 `;

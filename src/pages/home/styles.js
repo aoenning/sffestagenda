@@ -26,3 +26,12 @@ export const CardContainer = styled.div`
   flex-wrap: wrap;
   justify-content: center;
 `;
+
+export const InputAno = styled.input`
+  width: 100px;
+  height: 20px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  margin: 10px 0px 0px 10px
+`;
