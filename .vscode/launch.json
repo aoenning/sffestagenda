@@ -13,11 +13,14 @@
             "webRoot": "${workspaceFolder}"
         },
         {
+            "name": "Chrome com React",
             "type": "chrome",
             "request": "launch",
-            "name": "Launch Chrome against localhost",
-            "url": "http://localhost:3000",
-            "webRoot": "${workspaceFolder}"
-        }
+            "url": "http://localhost:3000", // URL onde sua aplicação está rodando
+            "webRoot": "${workspaceFolder}/src", // Ajuste para o diretório onde está o código-fonte
+            "breakOnLoad": true,
+            "sourceMaps": true,
+            "trace": true
+          }
     ]
 }

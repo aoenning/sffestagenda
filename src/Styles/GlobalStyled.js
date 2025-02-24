@@ -12,6 +12,7 @@ const GlobalStyles = createGlobalStyle`
     padding: 0;
     outline: 0;
     box-sizing: border-box;
+    outline: none;
   }
   table {
     border-collapse: collapse;
@@ -21,7 +22,7 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
   }
 
-  body { overflow-x: hidden; }
+  body { overflow-x: hidden; outline: none;}
   html, body, #root {
     
     max-height: 100vh;
