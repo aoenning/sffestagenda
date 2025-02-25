@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as s from "./styles";
+import { MdPaid, MdCall, MdCalendarMonth } from "react-icons/md";
 
 function Card({
   key,
@@ -18,13 +19,27 @@ function Card({
         <s.Titulo>{nome}</s.Titulo>
       </s.BoxTitle>
       <s.BoxSubTitle>
-        <h1>{date}</h1>
-        <h1>{email}</h1>
-        <h1>{telefone}</h1>
-        <h1>{confirmacao}</h1>
-        <h1>{valor}</h1>
-        <h1>{adiantamento}</h1>
-        <h1>{observacao}</h1>
+        <s.Area>
+          <MdCalendarMonth color="WHITE" />
+          <s.SubTitulo>{date}</s.SubTitulo>
+        </s.Area>
+        <s.Area>
+          <MdCall color="WHITE" />
+          <s.SubTitulo>{telefone}</s.SubTitulo>
+        </s.Area>
+        <s.Area>
+          <MdPaid color="WHITE" />
+          <s.SubTitulo>{adiantamento}</s.SubTitulo>
+        </s.Area>
+        <s.Area>
+          <s.SubTitulo>{confirmacao}</s.SubTitulo>
+        </s.Area>
+        <s.Area>
+          <s.SubTitulo>{valor}</s.SubTitulo>
+        </s.Area>
+        <s.Area>
+          <s.SubTitulo>{observacao}</s.SubTitulo>
+        </s.Area>
       </s.BoxSubTitle>
     </s.Container>
   );
