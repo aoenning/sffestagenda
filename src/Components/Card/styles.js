@@ -17,8 +17,8 @@ export const Container = styled.div`
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 5px;
-  width: 300px;
-  height: 200px;
+  width: 80%;
+  height: 220px;
   font-family: Arial, sans-serif;
   display: flex;
   flex-direction: column;
