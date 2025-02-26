@@ -10,7 +10,7 @@ import { GrNext, GrFormPrevious } from "react-icons/gr";
 import BottomComponet from "../../Components/BottomComponet";
 import { colors } from "../../Styles";
 import Modal from "../../Components/Modal";
-import { updateHome } from "../../store/modules/home/action";
+import { updateHome, clientesResete } from "../../store/modules/home/action";
 
 const months = [
   "Janeiro",
@@ -34,7 +34,6 @@ function Home() {
   const dispatch = useDispatch();
   const [selectedMonth, setSelectedMonth] = useState(0);
   const [selectedYear, setSelectedYear] = useState(0);
-  // const [refresh, setRefresh] = useState(true);
 
   const { show, cliente, refresh } = useSelector(function (state) {
     return state.home;
@@ -48,26 +47,29 @@ function Home() {
 
   useEffect(() => {
     // Referência ao nó "users" no Realtime Database
-
+    // dispatch(clientesResete());
     const date = new Date();
     const year = date.getFullYear(); //Pegar o ano atual
     const Ref = "ano/" + selectedYear + "/" + selectedMonth;
+    let list = [];
+    let ListArry = [];
+    let agendaList = [];
     // ref(db, `ano/${anoAtual}/mes/janeiro`);
 
     // const usersRef = db.ref(Ref);
     const usersRef = db.ref(`ano/${selectedYear}/mes/${selectedMonth + 1}`);
-    let ListArry = [];
+    ListArry = [];
     // Ouvir mudanças nos dados
     usersRef.on("value", (snapshot) => {
       const data = snapshot.val();
-      const agendaList = [];
+      agendaList = [];
       for (let id in data) {
         agendaList.push({ id, ...data[id] });
       }
 
       agendaList.map((d, index) => {
         // d.date.map((resul, index) => {
-        let list = {
+        list = {
           id: d.id,
           nome: d.nome,
           date: d.date, //moment(resul.date).format("DD/MM/YYYY"),

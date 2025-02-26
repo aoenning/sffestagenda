@@ -18,7 +18,7 @@ export const Container = styled.div`
   padding-left: 5px;
   padding-right: 5px;
   border: 1px solid;
-  border-color: ${colors.yello_primary};
+  border-color: ${colors.brack};
   border-radius: 10px;
   /* transition: all 0.5s; */
 
@@ -28,7 +28,7 @@ export const Container = styled.div`
 
   :hover {
     border: 2px solid;
-    border-color: ${colors.yello_primary};
+    border-color: ${colors.white};
   }
 `;
 
