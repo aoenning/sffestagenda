@@ -18,11 +18,12 @@ export const Container = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 5px;
   width: 80%;
-  height: 220px;
+  height: 300px;
   font-family: Arial, sans-serif;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  margin-top: 15px;
 `;
 
 export const Area = styled.div`
@@ -30,6 +31,14 @@ export const Area = styled.div`
   flex-direction: row;
   margin: 5px;
   padding: 2px;
+`;
+
+export const AreaRodape = styled.div`
+  /* background-color: green; */
+  /* position: sticky; */
+  bottom: 0;
+  width: 100%;
+  height: 10px; /* Define a altura do rodapé */
 `;
 
 export const BoxTitle = styled.div`

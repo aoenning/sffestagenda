@@ -10,6 +10,7 @@ export const Container = styled.body`
   display: flex;
   padding-top: 30px;
   outline: none;
+  
 `;
 
 export const Area = styled.body`

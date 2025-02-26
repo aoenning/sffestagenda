@@ -6,6 +6,7 @@ import BottomComponet from "../../Components/BottomComponet";
 import { useDispatch, useSelector } from "react-redux";
 import { get, ref, set, push } from "firebase/database";
 import { db } from "./../../firebase.js";
+
 import {
   MdOutlineClose as IconClosed,
   //   RxDoubleArrowRight as ArrowRight,
@@ -15,7 +16,7 @@ import { updateHome, clientesResete } from "../../store/modules/home/action";
 
 function Modal({ exibir, data, onClick, value, onChange }) {
   const dispatch = useDispatch();
-  const { show, cliente } = useSelector(function (state) {
+  const { show, cliente, refresh } = useSelector(function (state) {
     return state.home;
   });
 
@@ -46,6 +47,10 @@ function Modal({ exibir, data, onClick, value, onChange }) {
     dispatch(updateHome({ show: value }));
   }
 
+  function setRefresh(value) {
+    dispatch(updateHome({ refresh: value }));
+  }
+
   function save() {
     let dataSelecionada = new Date(cliente.date);
     let month = dataSelecionada.getMonth() + 1;
@@ -60,6 +65,7 @@ function Modal({ exibir, data, onClick, value, onChange }) {
     set(novoDadosRef, cliente)
       .then(() => {
         dispatch(clientesResete());
+        setRefresh("true");
         setShow("");
       })
       .catch((error) => {

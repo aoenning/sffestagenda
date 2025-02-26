@@ -34,8 +34,9 @@ function Home() {
   const dispatch = useDispatch();
   const [selectedMonth, setSelectedMonth] = useState(0);
   const [selectedYear, setSelectedYear] = useState(0);
+  // const [refresh, setRefresh] = useState(true);
 
-  const { show, cliente } = useSelector(function (state) {
+  const { show, cliente, refresh } = useSelector(function (state) {
     return state.home;
   });
 
@@ -113,7 +114,7 @@ function Home() {
     return () => {
       usersRef.off();
     };
-  }, [selectedMonth, selectedYear]);
+  }, [selectedMonth, selectedYear, refresh]);
 
   function setShow(value) {
     dispatch(updateHome({ show: value }));
@@ -154,7 +155,7 @@ function Home() {
             backgroudColor={colors.yello_primary}
             bordercolor={colors.yello_primary}
             textColor={colors.white}
-            width={"40%"}
+            // width={"40%"}
             // width="10%"
             onClick={() => {
               setShow("true");
@@ -177,7 +178,7 @@ function Home() {
         <s.CardContainer>
           {agenda.map((res, index) => (
             <Card
-              key={index}
+              id={res.id}
               nome={`${res.nome}`}
               date={res.date}
               email={res.email}

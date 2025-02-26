@@ -4,6 +4,7 @@ import types from "./types";
 
 const INITIAL_STATE = {
   show: "",
+  refresh: "true",
   cliente: {
     nome: "",
     telefone: "",

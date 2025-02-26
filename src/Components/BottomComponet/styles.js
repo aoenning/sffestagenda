@@ -5,7 +5,7 @@ export const Container = styled.button`
   background: ${(props) =>
     props.backgroudColor ? props.backgroudColor : colors.yello_primary};
   /* padding: 10px; */
-  width: 100px;
+  width: ${(props) => (props.width ? props.width : "100px")};
   height: ${(props) => (props.height ? props.height : "45px")};
   border-radius: 10px;
   border: 1px solid;
