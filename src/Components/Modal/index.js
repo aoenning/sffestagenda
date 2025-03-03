@@ -12,7 +12,11 @@ import {
   //   RxDoubleArrowRight as ArrowRight,
 } from "react-icons/md";
 
-import { updateHome, clientesResete } from "../../store/modules/home/action";
+import {
+  updateHome,
+  clientesResete,
+  saveAll,
+} from "../../store/modules/home/action";
 
 function Modal({ exibir, data, onClick, value, onChange }) {
   const dispatch = useDispatch();
@@ -52,25 +56,24 @@ function Modal({ exibir, data, onClick, value, onChange }) {
   }
 
   function save() {
-    let dataSelecionada = new Date(cliente.date);
-    let month = dataSelecionada.getMonth() + 1;
-    let year = dataSelecionada.getFullYear();
+    // let dataSelecionada = new Date(cliente.date);
+    // let month = dataSelecionada.getMonth() + 1;
+    // let year = dataSelecionada.getFullYear();
+    // const refAno = ref(db, `ano/${year}/mes/${month}`);
+    // // Criando um ID único automaticamente
+    // const novoDadosRef = push(refAno);
+    // // Salvando os dados
+    // set(novoDadosRef, cliente)
+    //   .then(() => {
+    //     dispatch(clientesResete());
+    //     setRefresh("true");
+    //     setShow("");
+    //   })
+    //   .catch((error) => {
+    //     console.error("Erro ao salvar os dados:", error);
+    //   });
 
-    const refAno = ref(db, `ano/${year}/mes/${month}`);
-
-    // Criando um ID único automaticamente
-    const novoDadosRef = push(refAno);
-
-    // Salvando os dados
-    set(novoDadosRef, cliente)
-      .then(() => {
-        dispatch(clientesResete());
-        setRefresh("true");
-        setShow("");
-      })
-      .catch((error) => {
-        console.error("Erro ao salvar os dados:", error);
-      });
+    dispatch(saveAll());
   }
 
   return (

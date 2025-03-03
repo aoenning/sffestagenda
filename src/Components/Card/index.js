@@ -6,7 +6,11 @@ import { colors } from "../../Styles";
 import { db } from "./../../firebase.js";
 import { useDispatch, useSelector } from "react-redux";
 import { get, ref, set, remove } from "firebase/database";
-import { updateHome, clientesResete } from "../../store/modules/home/action";
+import {
+  updateHome,
+  clientesResete,
+  agendaDelete,
+} from "../../store/modules/home/action";
 import moment from "moment";
 
 function Card({
@@ -21,31 +25,33 @@ function Card({
   observacao,
 }) {
   const dispatch = useDispatch();
-  const { show, cliente, refresh } = useSelector(function (state) {
-    return state.home;
-  });
+  const { show, cliente, refresh, selectedDate, selectedNome, key } =
+    useSelector(function (state) {
+      return state.home;
+    });
 
   function setRefresh(value) {
     dispatch(updateHome({ refresh: value }));
   }
 
-  const handleDelete = async (id, nome, date) => {
-    const dataOriginal = date; // Data no formato "DD/MM/YYYY"
-    const dataFormatada = moment(dataOriginal, "DD/MM/YYYY").format(
-      "YYYY-MM-DD"
-    );
-    const dataSelecionada = new Date(dataFormatada);
-    let month = dataSelecionada.getMonth() + 1;
-    let year = dataSelecionada.getFullYear();
+  function setSelectedDate(value) {
+    dispatch(updateHome({ selectedDate: value }));
+  }
 
-    const refDados = ref(db, `ano/${year}/mes/${month}/${id}`);
+  function setSelectedNome(value) {
+    dispatch(updateHome({ selectedNome: value }));
+  }
 
-    try {
-      await remove(refDados);
-      setRefresh("true");
-    } catch (error) {
-      console.error("Erro ao deletar:", error);
-    }
+  function setSelectedKey(value) {
+    dispatch(updateHome({ key: value }));
+  }
+
+  const handleDelete = async (id, selectedNome, selectedDate) => {
+    setSelectedDate(selectedDate);
+    setSelectedNome(selectedNome);
+    setSelectedKey(id);
+
+    dispatch(agendaDelete());
   };
 
   return (

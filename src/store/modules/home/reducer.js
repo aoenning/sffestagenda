@@ -3,8 +3,15 @@ import { produce } from "immer";
 import types from "./types";
 
 const INITIAL_STATE = {
+  selectedMonth: 0,
+  selectedYear: 0,
+  // agendaList: [],
+  agenda: [],
   show: "",
-  refresh: "true",
+  selectedDate: "",
+  key: "",
+  selectedNome: "",
+  refresh: "",
   cliente: {
     nome: "",
     telefone: "",
@@ -25,13 +32,6 @@ function home(state = INITIAL_STATE, action) {
         return draft;
       });
     }
-    case types.REQUEST_AGENDA: {
-      return produce(state, (draft) => {
-        draft = { ...draft, ...action.payload };
-        return draft;
-      });
-    }
-
     case types.RESETE_CLIENTE: {
       return produce(state, (draft) => {
         draft.cliente = INITIAL_STATE.cliente;

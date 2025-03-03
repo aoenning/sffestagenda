@@ -10,7 +10,12 @@ import { GrNext, GrFormPrevious } from "react-icons/gr";
 import BottomComponet from "../../Components/BottomComponet";
 import { colors } from "../../Styles";
 import Modal from "../../Components/Modal";
-import { updateHome, clientesResete } from "../../store/modules/home/action";
+import {
+  updateHome,
+  clientesResete,
+  agendaAll,
+  agendaDelete,
+} from "../../store/modules/home/action";
 
 const months = [
   "Janeiro",
@@ -28,51 +33,100 @@ const months = [
 ];
 
 function Home() {
-  const [agenda, setAgenda] = useState([]);
-  const [month, setMonth] = useState(1); // Mês desejado (1 = Janeiro)
+  // const [agenda, setAgenda] = useState([]);
+  // const [month, setMonth] = useState(1); // Mês desejado (1 = Janeiro)
   const [ano, setAno] = useState(""); // Ano
   const dispatch = useDispatch();
-  const [selectedMonth, setSelectedMonth] = useState(0);
-  const [selectedYear, setSelectedYear] = useState(0);
+  // const [selectedMonth, setSelectedMonth] = useState(0);
+  // const [selectedYear, setSelectedYear] = useState(0);
 
-  const { show, cliente, refresh } = useSelector(function (state) {
-    return state.home;
-  });
+  const { show, cliente, refresh, selectedYear, selectedMonth, agenda } =
+    useSelector(function (state) {
+      return state.home;
+    });
 
   useEffect(() => {
     const today = new Date();
-    setSelectedYear(today.getFullYear());
-    setSelectedMonth(today.getMonth());
+    let year = today.getFullYear();
+    setYear(year);
+
+    let month = today.getMonth();
+    setMonth(month);
+    // intial();
   }, []);
 
   useEffect(() => {
-    // Referência ao nó "users" no Realtime Database
-    // dispatch(clientesResete());
+    intial();
+  }, [selectedMonth, selectedYear, refresh]);
+
+  function setShow(value) {
+    dispatch(updateHome({ show: value }));
+  }
+
+  function setYear(value) {
+    dispatch(updateHome({ selectedYear: value }));
+  }
+
+  function setMonth(value) {
+    dispatch(updateHome({ selectedMonth: value }));
+  }
+
+  function handleLeftDateClick() {
+    let mountDate = new Date(selectedYear, selectedMonth, 1);
+    mountDate.setMonth(mountDate.getMonth() - 1);
+
+    let year = mountDate.getFullYear();
+    let month = mountDate.getMonth();
+
+    setYear(year);
+    setMonth(month);
+
+    // setSelectedYear(mountDate.getFullYear());
+    // setSelectedMonth(mountDate.getMonth());
+  }
+
+  function handleRightDateClick() {
+    let mountDate = new Date(selectedYear, selectedMonth, 1);
+    mountDate.setMonth(mountDate.getMonth() + 1);
+
+    let year = mountDate.getFullYear();
+    let month = mountDate.getMonth();
+
+    setYear(year);
+    setMonth(month);
+
+    // setSelectedYear(mountDate.getFullYear());
+    // setSelectedMonth(mountDate.getMonth());
+  }
+
+  function intial() {
+    // dispatch(agendaAll());
+
     const date = new Date();
     const year = date.getFullYear(); //Pegar o ano atual
     const Ref = "ano/" + selectedYear + "/" + selectedMonth;
     let list = [];
     let ListArry = [];
     let agendaList = [];
-    // ref(db, `ano/${anoAtual}/mes/janeiro`);
-
-    // const usersRef = db.ref(Ref);
     const usersRef = db.ref(`ano/${selectedYear}/mes/${selectedMonth + 1}`);
-    ListArry = [];
-    // Ouvir mudanças nos dados
+
     usersRef.on("value", (snapshot) => {
       const data = snapshot.val();
-      agendaList = [];
+      ListArry = [];
       for (let id in data) {
-        agendaList.push({ id, ...data[id] });
+        ListArry.push({ id, ...data[id] });
       }
 
-      agendaList.map((d, index) => {
-        // d.date.map((resul, index) => {
+      const sortList = () => {
+        return ListArry.sort((a, b) => new Date(a.date) - new Date(b.date));
+      };
+      const listSort = sortList();
+      ListArry = [];
+      listSort.map((d, index) => {
         list = {
           id: d.id,
           nome: d.nome,
-          date: d.date, //moment(resul.date).format("DD/MM/YYYY"),
+          date: moment(d.date).format("DD/MM/YYYY"),
           email: d.email,
           telefone: d.telefone,
           confirmacao: d.confirmacao,
@@ -80,60 +134,13 @@ function Home() {
           adiantamento: d.adiantamento,
           observacao: d.observacao,
         };
-
-        ListArry = [...ListArry, list];
-        // });
-      });
-
-      const sortList = () => {
-        return ListArry.sort((a, b) => new Date(a.date) - new Date(b.date)); // decrescentenew Date(b.date)
-      };
-
-      const listSort = sortList();
-
-      ListArry = [];
-      listSort.map((resul, index) => {
-        let list = {
-          id: resul.id,
-          nome: resul.nome,
-          date: moment(resul.date).format("DD/MM/YYYY"),
-          email: resul.email,
-          telefone: resul.telefone,
-          confirmacao: resul.confirmacao,
-          valor: resul.valor,
-          adiantamento: resul.adiantamento,
-          observacao: resul.observacao,
-        };
-
         ListArry = [...ListArry, list];
       });
-
-      setAgenda(ListArry);
-      console.log(agendaList);
+      dispatch(updateHome({ agenda: ListArry }));
     });
-
-    // Cleanup listener quando o componente é desmontado
     return () => {
       usersRef.off();
     };
-  }, [selectedMonth, selectedYear, refresh]);
-
-  function setShow(value) {
-    dispatch(updateHome({ show: value }));
-  }
-
-  function handleLeftDateClick() {
-    let mountDate = new Date(selectedYear, selectedMonth, 1);
-    mountDate.setMonth(mountDate.getMonth() - 1);
-    setSelectedYear(mountDate.getFullYear());
-    setSelectedMonth(mountDate.getMonth());
-  }
-
-  function handleRightDateClick() {
-    let mountDate = new Date(selectedYear, selectedMonth, 1);
-    mountDate.setMonth(mountDate.getMonth() + 1);
-    setSelectedYear(mountDate.getFullYear());
-    setSelectedMonth(mountDate.getMonth());
   }
 
   return (
