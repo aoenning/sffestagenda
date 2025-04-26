@@ -9,8 +9,7 @@ export const Container = styled.body`
   flex-direction: column;
   display: flex;
   padding-top: 30px;
-  outline: none;
-  
+  outline: none; 
 `;
 
 export const Area = styled.body`

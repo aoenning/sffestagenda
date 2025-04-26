@@ -139,11 +139,16 @@ export function* handleSave() {
   const { selectedYear, selectedMonth, agenda, cliente } = yield select(
     (state) => state.home
   );
+
+  const partes = cliente.date.split("-");
+  const data = new Date(partes[0], partes[1] - 1, partes[2]); // mês começa em 0
+  let mes = (data.getMonth() + 1).toString();
+
   let dataSelecionada = new Date(cliente.date);
-  let month = dataSelecionada.getMonth();
+  let month = dataSelecionada.getMonth() + 1;
   let year = dataSelecionada.getFullYear();
 
-  const refAno = ref(db, `ano/${year}/mes/${month + 1}`);
+  const refAno = ref(db, `ano/${year}/mes/${mes}`);
 
   // Criando um ID único automaticamente
   const novoDadosRef = push(refAno);

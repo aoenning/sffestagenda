@@ -37,6 +37,7 @@ function Home() {
   // const [month, setMonth] = useState(1); // Mês desejado (1 = Janeiro)
   const [ano, setAno] = useState(""); // Ano
   const dispatch = useDispatch();
+  const [agendamentos, setAgendamentos] = useState({});
   // const [selectedMonth, setSelectedMonth] = useState(0);
   // const [selectedYear, setSelectedYear] = useState(0);
 
@@ -111,7 +112,7 @@ function Home() {
     const usersRef = db.ref(`ano/${selectedYear}/mes/${selectedMonth + 1}`);
 
     usersRef.on("value", (snapshot) => {
-      const data = snapshot.val();
+      const data = snapshot.val();      
       ListArry = [];
       for (let id in data) {
         ListArry.push({ id, ...data[id] });
@@ -138,10 +139,24 @@ function Home() {
       });
       dispatch(updateHome({ agenda: ListArry }));
     });
+
+    gerarDiasDoMes(selectedMonth, selectedYear);
+
     return () => {
       usersRef.off();
     };
   }
+
+  const gerarDiasDoMes = (mes, ano) => {
+    const dias = [];
+    const ultimoDia = new Date(parseInt(ano), parseInt(mes + 1), 0).getDate();
+    for (let dia = 1; dia <= ultimoDia; dia++) {
+      dias.push(dia.toString().padStart(2, "0"));
+    }
+    return dias;
+  };
+
+  // const diasDoMes = gerarDiasDoMes(ano, mes);
 
   return (
     <s.Container>
